@@ -2,8 +2,8 @@ package se.chalmers.ibid.model.category;
 
 import java.util.List;
 
-import es.udc.pojo.modelutil.dao.GenericDao;
-import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
+import se.chalmers.ibid.model.dao.GenericDao;
+import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
 public interface CategoryDao extends GenericDao<Category, Long>{
 	
