@@ -5,5 +5,5 @@ import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
 public interface UserDao extends GenericDao<User, Long>{
 
-	public User buscarUsuarioPorLogin(String login) throws InstanceNotFoundException;
+	public User searchUserByLogin(String login) throws InstanceNotFoundException;
 }

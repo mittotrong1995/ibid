@@ -7,7 +7,7 @@ import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
 public interface CategoryDao extends GenericDao<Category, Long>{
 	
-	public Category buscarCategoriaPorNombre(String nombre) throws InstanceNotFoundException;
-	public List<Category> buscarCategorias();
+	public Category searchCategoryByName(String name) throws InstanceNotFoundException;
+	public List<Category> searchCategories();
 	
 }

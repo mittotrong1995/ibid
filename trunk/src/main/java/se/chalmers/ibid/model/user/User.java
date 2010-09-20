@@ -19,43 +19,43 @@ import se.chalmers.ibid.model.account.Account;
 
 
 @Entity
-@Table (name = "Usuario")
+@Table (name = "User")
 public class User {
 	
-	private Long idUsuario;
+	private Long userId;
 	private String login;
 	private String password;
-	private String nombre;
-	private String apellidos;
+	private String name;
+	private String surname;
 	private String email;
-	private Account cuenta;
+	private Account account;
 	private Long version;
 	
 	public User(){}
 	
-    public User(String login, String password, String nombre,
-			String apellidos, String email, Account cuenta) {
+    public User(String login, String password, String name,
+			String surname, String email, Account account) {
 		this.login = login;
 		this.password = password;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this.name = name;
+		this.surname = surname;
 		this.email = email;
-		this.cuenta = cuenta;
+		this.account = account;
 	}
 
-	@Column(name="idUsuario")
+	@Column(name="userId")
     @SequenceGenerator( 
-         name="IdUsuarioGenerator", 
-         sequenceName="UsuarioSeq")
+         name="UserIdGenerator", 
+         sequenceName="UserSeq")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="IdUsuarioGenerator")
-	public Long getIdUsuario() {
-		return idUsuario;
+                    generator="UserIdGenerator")
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	@Column(name="login")
@@ -76,22 +76,22 @@ public class User {
 		this.password = password;
 	}
 	
-	@Column(name="nombre")
-	public String getNombre() {
-		return nombre;
+	@Column(name="name")
+	public String getName() {
+		return name;
 	}
 	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	@Column(name="apellidos")
-	public String getApellidos() {
-		return apellidos;
+	@Column(name="surname")
+	public String getSurname() {
+		return surname;
 	}
 	
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	
 	@Column(name="email")
@@ -104,14 +104,14 @@ public class User {
 	}
 	
 	@OneToOne(optional=false, fetch=FetchType.LAZY)
-	@JoinColumn(name="idCuenta")
+	@JoinColumn(name="accountId")
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
-	public Account getCuenta() {
-		return cuenta;
+	public Account getAccount() {
+		return account;
 	}
 	
-	public void setCuenta(Account cuenta) {
-		this.cuenta = cuenta;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	@Version

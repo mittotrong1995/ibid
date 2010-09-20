@@ -10,42 +10,42 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name = "Cuenta")
+@Table (name = "Account")
 public class Account {
 	
 
-	private Long idCuenta;
-	private double saldo;
+	private Long accountId;
+	private double money;
 	private Long version;
 
 	public Account(){}
 	
-    public Account(double saldo) {
-		this.saldo = saldo;
+    public Account(double money) {
+		this.money = money;
 	}
 
-	@Column(name="idCuenta")
+	@Column(name="accountId")
     @SequenceGenerator( 
-         name="IdCuentaGenerator", 
-         sequenceName="CuentaSeq")
+         name="AccountIdGenerator", 
+         sequenceName="AccountSeq")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="IdCuentaGenerator")
-	public Long getIdCuenta() {
-		return idCuenta;
+                    generator="AccountIdGenerator")
+	public Long getAccountId() {
+		return accountId;
 	}
 
-	public void setIdCuenta(Long idCuenta) {
-		this.idCuenta = idCuenta;
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
 	}
 
-    @Column(name="saldo")
-	public double getSaldo() {
-		return saldo;
+    @Column(name="money")
+	public double getMoney() {
+		return money;
 	}
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
+	public void setMoney(double money) {
+		this.money = money;
 	}
 
 	@Version

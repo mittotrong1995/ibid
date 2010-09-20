@@ -9,28 +9,29 @@ import org.springframework.stereotype.Repository;
 import se.chalmers.ibid.model.dao.GenericDaoHibernate;
 import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
-@Repository("categoriaDao")
+@Repository("categoryDao")
 public class CategoryDaoHibernate extends GenericDaoHibernate<Category, Long> implements CategoryDao{
 	
-	public Category buscarCategoriaPorNombre(String nombre) throws InstanceNotFoundException{
-		String stringConsulta;
-		stringConsulta = "SELECT c FROM Categoria c WHERE c.nombre LIKE :nombre";
-		Query consulta = getSession().createQuery(stringConsulta);
-		consulta.setParameter("nombre", nombre);
-		Category categoria;
+	public Category searchCategoryByName(String name) throws InstanceNotFoundException{
+		String stringQuery;
+		stringQuery = "SELECT c FROM Category c WHERE c.name LIKE :name";
+		Query query = getSession().createQuery(stringQuery);
+		query.setParameter("name", name);
+		
+		Category category;
 		try {
-			categoria = (Category) consulta.uniqueResult();
-			if (categoria == null) throw new InstanceNotFoundException(nombre, Category.class.getName());
+			category = (Category) query.uniqueResult();
+			if (category == null) throw new InstanceNotFoundException(name, Category.class.getName());
 		} catch (HibernateException e) {
             throw convertHibernateAccessException(e);
         }
-		return categoria;
+		return category;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Category> buscarCategorias(){
+	public List<Category> searchCategories(){
 		String stringConsulta;
-		stringConsulta = "SELECT c FROM Categoria c";
+		stringConsulta = "SELECT c FROM Category c";
 		Query consulta = getSession().createQuery(stringConsulta);
 		return consulta.list();
 	}

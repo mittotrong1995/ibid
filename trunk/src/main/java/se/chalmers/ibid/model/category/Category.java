@@ -12,40 +12,40 @@ import org.hibernate.annotations.BatchSize;
 
 @Entity
 @org.hibernate.annotations.Entity(mutable = false)
-@Table (name = "Categoria")
+@Table (name = "Category")
 @BatchSize(size=10)
 public class Category {
 	
-	private Long idCategoria;
-	private String nombre;
+	private Long categoryId;
+	private String name;
 	
 	public Category(){}
 	
-    public Category(String nombre) {
-		this.nombre = nombre;
+    public Category(String name) {
+		this.name = name;
 	}
 
-	@Column(name="idCategoria")
+	@Column(name="categoryId")
     @SequenceGenerator( 
-         name="IdCategoriaGenerator", 
-         sequenceName="CategoriaSeq")
+         name="CategoryIdGenerator", 
+         sequenceName="CategorySeq")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="IdCategoriaGenerator")
-	public Long getIdCategoria() {
-		return idCategoria;
+                    generator="CategoryIdGenerator")
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	@Column(name="nombre")
-	public String getNombre() {
-		return nombre;
+	@Column(name="name")
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 }

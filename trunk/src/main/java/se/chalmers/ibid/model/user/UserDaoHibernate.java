@@ -7,23 +7,23 @@ import org.springframework.stereotype.Repository;
 import se.chalmers.ibid.model.dao.GenericDaoHibernate;
 import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
-@Repository("usuarioDao")
+@Repository("userDao")
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao {
 	
-	public User buscarUsuarioPorLogin(String login) throws InstanceNotFoundException{
-		String stringConsulta;
-		stringConsulta = "SELECT u FROM Usuario u WHERE u.login LIKE :login";
-		Query consulta = getSession().createQuery(stringConsulta);
-		consulta.setParameter("login", login);
-		User usuario;
-		// El login es unico (restriccion UNIQUE)
+	public User searchUserByLogin(String login) throws InstanceNotFoundException{
+		String stringQuery;
+		stringQuery = "SELECT u FROM User u WHERE u.login LIKE :login";
+		Query query = getSession().createQuery(stringQuery);
+		query.setParameter("login", login);
+		User user;
+
 		try {
-			usuario = (User) consulta.uniqueResult();
-			if (usuario == null) throw new InstanceNotFoundException(login, User.class.getName());
+			user = (User) query.uniqueResult();
+			if (user == null) throw new InstanceNotFoundException(login, User.class.getName());
 		} catch (HibernateException e) {
             throw convertHibernateAccessException(e);
         }
-		return usuario;
+		return user;
 	}
 
 }
