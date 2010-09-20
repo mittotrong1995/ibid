@@ -4,8 +4,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
-import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
+import se.chalmers.ibid.model.dao.GenericDaoHibernate;
+import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
 @Repository("usuarioDao")
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao {

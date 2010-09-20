@@ -1,7 +1,7 @@
 package se.chalmers.ibid.model.user;
 
-import es.udc.pojo.modelutil.dao.GenericDao;
-import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
+import se.chalmers.ibid.model.dao.GenericDao;
+import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
 public interface UserDao extends GenericDao<User, Long>{
 

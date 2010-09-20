@@ -25,9 +25,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import se.chalmers.ibid.model.category.Category;
-
-import es.udc.biwin.model.tipoApuesta.TipoApuesta;
-import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
+import se.chalmers.ibid.model.exception.DuplicateInstanceException;
 
 @Entity
 @Table (name = "Evento")
