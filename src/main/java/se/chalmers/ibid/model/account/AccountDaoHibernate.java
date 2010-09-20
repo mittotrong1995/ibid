@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import se.chalmers.ibid.model.dao.GenericDaoHibernate;
 
-@Repository("cuentaDao")
+@Repository("accountDao")
 public class AccountDaoHibernate extends GenericDaoHibernate<Account, Long> implements AccountDao{
 
 }
