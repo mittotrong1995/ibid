@@ -17,11 +17,11 @@ CREATE TABLE PingTable (foo CHAR(1));
 -- must be dropped first (otherwise, the corresponding checks on those tables
 -- could not be done).
 
+DROP TABLE Bid;
 DROP TABLE User;
 DROP TABLE Account;
 DROP TABLE Product;
 DROP TABLE Category;
-DROP TABLE Bid;
 
 -- ------------------------------- Account ------------------------------------
 
@@ -56,7 +56,8 @@ CREATE INDEX CategoryByCategoryIdIndex ON Category (categoryId);
 -- ------------------------------- Product ------------------------------------
 
 CREATE TABLE Product ( productId BIGINT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL, date TIMESTAMP NOT NULL,
+    name VARCHAR(100) NOT NULL, startprice DOUBLE PRECISION NOT NULL,
+    date TIMESTAMP NOT NULL,
     categoryId BIGINT NOT NULL, version BIGINT, 
     CONSTRAINT ProductPK PRIMARY KEY(productId),
     CONSTRAINT ProductCategoryFK FOREIGN KEY(categoryId)

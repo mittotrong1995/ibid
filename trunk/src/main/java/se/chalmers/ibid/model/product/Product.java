@@ -28,13 +28,14 @@ public class Product {
 
 	private Long productId;
 	private String name;
+	private double startprice;
 	private Calendar date;
 	private Category category;
 	private Long version;
 	
 	public Product(){}
 	
-    public Product(String name, Calendar date, Category category) {
+    public Product(String name, double startprice, Calendar date, Category category) {
 		this.name = name;
 		this.date = date;
 		this.category = category;
@@ -62,6 +63,15 @@ public class Product {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+    @Column(name="startprice")
+	public double getStartprice() {
+		return startprice;
+	}
+
+	public void setStartprice(double startprice) {
+		this.startprice = startprice;
 	}
 	
 	@Column(name="date")
