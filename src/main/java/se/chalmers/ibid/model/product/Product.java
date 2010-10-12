@@ -85,7 +85,7 @@ public class Product {
 	}
 	
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	@JoinColumn(name="idCategory")
+	@JoinColumn(name="categoryId")
 	public Category getCategory() {
 		return category;
 	}

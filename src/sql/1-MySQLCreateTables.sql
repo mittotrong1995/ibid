@@ -7,7 +7,6 @@
 -- referenced key are listed as the FIRST columns.
 
 -- ---------- Table for validation queries from the connection pool -----------
-
 DROP TABLE PingTable;
 CREATE TABLE PingTable (foo CHAR(1));
 
