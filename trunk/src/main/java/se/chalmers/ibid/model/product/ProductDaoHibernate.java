@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import se.chalmers.ibid.model.dao.GenericDaoHibernate;
 import se.chalmers.ibid.model.exception.InstanceNotFoundException;
 
-@Repository("ProductDao")
+@Repository("productDao")
 public class ProductDaoHibernate extends GenericDaoHibernate<Product, Long> implements ProductDao{
 	
 	@SuppressWarnings("unchecked")

@@ -29,8 +29,7 @@ public class Account {
          name="AccountIdGenerator", 
          sequenceName="AccountSeq")
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="AccountIdGenerator")
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="AccountIdGenerator")
 	public Long getAccountId() {
 		return accountId;
 	}

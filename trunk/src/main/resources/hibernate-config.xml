@@ -25,13 +25,11 @@
         <property name="current_session_context_class">thread</property> -->
         
         <!--  List of persistent classes -->
-        <mapping class="es.udc.biwin.model.usuario.Usuario" />
-        <mapping class="es.udc.biwin.model.cuenta.Cuenta" />
-        <mapping class="es.udc.biwin.model.apuesta.Apuesta" />
-        <mapping class="es.udc.biwin.model.opcionApuesta.OpcionApuesta" />
-        <mapping class="es.udc.biwin.model.tipoApuesta.TipoApuesta" />
-        <mapping class="es.udc.biwin.model.evento.Evento" />
-        <mapping class="es.udc.biwin.model.categoria.Categoria" />
+        <mapping class="se.chalmers.ibid.model.account.Account" />
+        <mapping class="se.chalmers.ibid.model.bid.Bid" />
+        <mapping class="se.chalmers.ibid.model.category.Category" />
+        <mapping class="se.chalmers.ibid.model.product.Product" />
+        <mapping class="se.chalmers.ibid.model.user.User" />
 
     </session-factory>
 </hibernate-configuration>
