@@ -10,4 +10,6 @@ public interface BidDao extends GenericDao<Bid, Long> {
 	public List<Bid> searchBidsByProduct(Long productId, int startIndex, int count);
 	public int getNumberBidsByAccount(Long accountId);
 	public List<Bid> searchBidsByAccount(Long accountId, int startIndex, int count);
+	public int getNumberOngoingBidsByAccount(Long accountId);
+	public List<Bid> searchOngoingBidsByAccount(Long accountId, int startIndex, int count);
 }
