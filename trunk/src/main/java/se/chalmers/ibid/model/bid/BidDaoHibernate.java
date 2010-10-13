@@ -73,4 +73,35 @@ public class BidDaoHibernate extends GenericDaoHibernate<Bid, Long> implements B
             throw convertHibernateAccessException(e);
         }
 	}
+	
+	private Query prepareQueryOngoingBids(Long accountId, boolean type){
+		String stringQuery;
+    	if(type) stringQuery = "SELECT b FROM Bid b WHERE (b.account.accountId = :accountId AND b.product.ended=FALSE) ORDER BY b.bidId";
+    	else stringQuery = "SELECT COUNT(b) FROM Bid b WHERE (b.account.accountId = :accountId AND b.product.ended=FALSE) ORDER BY b.bidId";
+    	Query query = getSession().createQuery(stringQuery).setParameter("accountId", accountId);
+    	return query;
+	}
+	
+	public int getNumberOngoingBidsByAccount(Long accountId) {
+	    try {
+	    	Query query = prepareQueryOngoingBids(accountId, false);
+    		long number = (Long) query.uniqueResult();
+    		return (int) number;
+
+    	} catch (HibernateException e) {
+            throw convertHibernateAccessException(e);
+        }
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Bid> searchOngoingBidsByAccount(Long accountId, int startIndex, int count) {
+	    try {
+	    	Query query = prepareQueryOngoingBids(accountId, true);
+            return query.setFirstResult(startIndex).
+                    		setMaxResults(count).
+                    		list();
+	    } catch (HibernateException e) {
+            throw convertHibernateAccessException(e);
+        }
+	}
 }

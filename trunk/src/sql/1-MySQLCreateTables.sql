@@ -16,6 +16,8 @@ CREATE TABLE PingTable (foo CHAR(1));
 -- must be dropped first (otherwise, the corresponding checks on those tables
 -- could not be done).
 
+ALTER TABLE Product DROP FOREIGN KEY ProductBidFK;
+
 DROP TABLE Bid;
 DROP TABLE User;
 DROP TABLE Account;
@@ -56,15 +58,16 @@ CREATE INDEX CategoryByCategoryIdIndex ON Category (categoryId);
 
 CREATE TABLE Product ( productId BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL, startprice DOUBLE PRECISION NOT NULL,
-    date TIMESTAMP NOT NULL,
-    categoryId BIGINT NOT NULL, version BIGINT, 
+    date TIMESTAMP NOT NULL, ended BOOL NOT NULL,
+    categoryId BIGINT NOT NULL, bidId BIGINT, version BIGINT, 
     CONSTRAINT ProductPK PRIMARY KEY(productId),
     CONSTRAINT ProductCategoryFK FOREIGN KEY(categoryId)
-        REFERENCES Category (categoryId),   
+        REFERENCES Category (categoryId),
     CONSTRAINT validDate CHECK ( date > CURRENT_TIMESTAMP() ) ) ENGINE = InnoDB;
 
 CREATE INDEX ProductByProductIdIndex ON Product (productId);
 CREATE INDEX ProductByCategoryIdIndex ON Product (productId, categoryId);
+CREATE INDEX ProductByBidIdIndex ON Product (productId, bidId);
 CREATE INDEX ProductByDateIndex ON Product (productId, date);
 
 -- ------------------------------- Bid ------------------------------------
@@ -83,3 +86,8 @@ CREATE INDEX BidByBidIdIndex ON Bid (bidId);
 CREATE INDEX BidByAccountIdIndex ON Bid (bidId, accountId);
 CREATE INDEX BidByProductIdIndex ON Bid (bidId, productId);
 CREATE INDEX BidByDateIndex ON Bid (bidId, date);
+
+
+ALTER TABLE Product
+  ADD CONSTRAINT ProductBidFK FOREIGN KEY(bidId)
+      REFERENCES Bid (bidId);
