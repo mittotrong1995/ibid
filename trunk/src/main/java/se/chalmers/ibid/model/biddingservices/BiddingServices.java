@@ -27,6 +27,10 @@ public interface BiddingServices {
 	
 	public List<Bid> getBids(Long account, int startIndex, int count) throws InstanceNotFoundException;
 	
+	public int getNumberBidsByProduct(Long productId) throws InstanceNotFoundException;
+	
+	public List<Bid> getBidsByProduct(Long productId) throws InstanceNotFoundException;
+	
 	public int getNumberOngoingBids(Long accountId) throws InstanceNotFoundException;
 
 	public List<Bid> getOngoingBids(Long accountId, int startIndex, int count) throws InstanceNotFoundException;

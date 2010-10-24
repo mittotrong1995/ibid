@@ -80,6 +80,25 @@ public class BiddingServicesImpl implements BiddingServices{
 	}
 	
 	@Transactional(readOnly = true)
+	public int getNumberBidsByProduct(Long productId) throws InstanceNotFoundException {
+
+		if (!productDao.exists(productId)) {
+			throw new InstanceNotFoundException(productId, Product.class.getName());
+		}
+		return bidDao.getNumberBidsByProduct(productId);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Bid> getBidsByProduct(Long productId) throws InstanceNotFoundException {
+
+		if (!productDao.exists(productId)) {
+			throw new InstanceNotFoundException(productId, Product.class.getName());
+		}
+		int number = getNumberBidsByProduct(productId);
+		return bidDao.searchBidsByProduct(productId, 0, number);
+	}
+	
+	@Transactional(readOnly = true)
 	public int getNumberOngoingBids(Long accountId) throws InstanceNotFoundException {
 
 		if (!accountDao.exists(accountId)) {

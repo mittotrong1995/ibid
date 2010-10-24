@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import se.chalmers.ibid.model.dao.GenericDaoHibernate;
 
-@Repository("apuestaDao")
+@Repository("bidDao")
 public class BidDaoHibernate extends GenericDaoHibernate<Bid, Long> implements BidDao {
 	
 	private Query prepareQueryProduct(Long productId, boolean op){
@@ -45,7 +45,7 @@ public class BidDaoHibernate extends GenericDaoHibernate<Bid, Long> implements B
 	private Query prepareQueryAccount(Long accountId, boolean op){
 		String stringQuery;
     	if(op) stringQuery = "SELECT b FROM Bid b WHERE b.account.accountId = :accountId ORDER BY b.bidId";
-    	else stringQuery = "SELECT COUNT(b) FROM Bid b WHERE b.bid.accountId = :accountId ORDER BY b.bidId";
+    	else stringQuery = "SELECT COUNT(b) FROM Bid b WHERE b.account.accountId = :accountId ORDER BY b.bidId";
     	Query query = getSession().createQuery(stringQuery).setParameter("accountId", accountId);
     	return query;
 	}

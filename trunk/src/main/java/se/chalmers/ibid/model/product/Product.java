@@ -43,6 +43,7 @@ public class Product {
 		this.name = name;
 		this.date = date;
 		this.category = category;
+		this.bestBid = null;
 	}
 
 	@Column(name="productId")
