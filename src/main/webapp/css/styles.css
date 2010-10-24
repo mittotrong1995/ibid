@@ -52,7 +52,7 @@ a:hover {
 #sidebar {
     float: left;
     background-color: #094069;
-    width: 28%;
+    width: 20%;
 }
 
 #sidebar a {
@@ -65,7 +65,6 @@ a:hover {
     /* Hack for correct indentation (the following three lines). */
     margin-left: 0;
     padding-left: 1em;
-    text-indent: -1em;
 }
 
 #sidebar li {
@@ -76,13 +75,18 @@ a:hover {
 
 #content {
     padding-top: 20px;
-    float: right;    
     text-align: center;
-    width: 71%;
+    float: right;
+    padding-bottom: 20px;
 }
 
 p.welcome {
     font-size: 16px;
+}
+
+p.title{
+    font-size: large;
+    font-style: bold;
 }
 
 /* Forms. */
@@ -133,35 +137,83 @@ table th, td {
 
 /* Account details. */
 
-table.accountDetails {
+table.viewAccount {
    margin: 0 auto;
-   border: #000 1px solid;
+   border-style:solid;
+   border-width:thick;
    text-align: left;
-   width: 35%;
+   width: 20%;
 }
 
-table.accountDetails th {
+table.viewAccount th {
+	text-align:center;
+	border-style:ridge;
     width: 60%;
 }
 
-table.accountDetails td {
+table.viewAccount td {
+	text-align:center;
+	border-style:ridge;
     width: 30%;
 }
+
+
+/* Tipos de apuesta */
+
+table.viewProductDetails {
+   border-style:solid;
+   border-width:thick;
+   text-align: left;
+}
+
+table.viewProductDetails th {
+	text-align:center;
+	border-style:ridge;
+	padding-right:5px;
+	padding-left:5px;
+}
+
+table.viewProductDetails td {
+	text-align:center;
+	border-style:ridge;
+}
+
+
+/* Tabla sidebar AJAX*/
+table.visualizarApuestas {
+   	margin: 0 auto;
+   	text-align: left;
+	font-color: #fffac6;
+  	width: 30%;
+}
+
+table.visualizarApuestas th {
+	text-align:center;
+	font-color: #fffac6;
+   	width: 60%;
+}
+
+table.visualizarApuestas td {
+	text-align:center;
+	font-color: #fffac6;
+   	width: 30%;
+}
+
 
 /* User's accounts. */
 
 table.userAccounts {
-   margin: 0 auto;
-   text-align: center;
-   width: 35%;
+    margin: 0 auto;
+    text-align: center;
+    width: 35%;
 }
 
 /* Account operations. */
 
 table.accountOperations {
-   margin: 0 auto;
-   text-align: center;
-   width: 45%; 
+    margin: 0 auto;
+    text-align: center;
+    width: 45%; 
 }
 
 /* "Previous" and "Next" links. */
@@ -207,14 +259,140 @@ div.t-error ul {
 
 div.t-data-grid {
 	font-family: Arial, Helvetica, sans-serif;
+	border: ridge;
 }
+
+div.t-data-grid.tr.show {
+	display: block;
+} 
 
 div.t-data-grid-pager span.current {
     background-color: #097099;
 }
 
 div.t-data-grid-pager a, div.t-data-grid-pager span.current {
-    font-size: 12px;
+    font-size: 15px;
 }
 
 
+	
+
+/*--------------------------------------------------------------------------
+* Components > Tables
+*/
+
+
+
+div.t-data-grid {
+	border-width: 0px;
+}
+
+div.t-data-grid tr {
+	background-color: #C0D9D9;
+}
+
+div.t-data-grid thead tr {
+	background-color: #5A93AF !important;
+	border: 1px solid silver !important;
+}
+
+div.t-data-grid thead th {
+	padding: .5em .2em ;
+	background-color: transparent !important;
+	border-width: 0px !important;
+	vertical-align: middle !important;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+div.t-data-grid thead th a:link,
+
+div.t-data-grid thead th a:visited {
+	color: #FFF !important;
+}
+
+div.t-data-grid thead th a:hover,
+
+div.t-data-grid thead th a:active {
+	background-color: transparent;
+	color: #EE1139 !important;
+}
+
+div.t-data-grid tbody tr {
+	border: 1px solid silver !important;
+}
+
+div.t-data-grid tbody tr:hover {
+	background-color: #FFFFCC !important;
+}
+
+div.t-data-grid tbody td {
+	padding: .25em .2em !important;
+	border-width: 0px !important;
+	vertical-align: middle !important;
+	white-space: nowrap;
+}
+
+
+/*--------------------------------------------------------------------------
+* Components > AJAX Zone
+*/
+
+
+div.t-zone {
+    float: right;
+    background-color: #094069;
+    font-color : #fffac6;
+    width: 30%;
+    clear: both;
+    padding: 5px;
+}
+
+/*--------------------------------------------------------------------------
+* Components > Palette
+*/
+
+DIV.t-palette {
+  	display: inline-block;
+  	horizontal-align: middle;
+  	vertical-align: middle;
+  	padding-bottom: 2%;
+}
+
+DIV.t-palette SELECT {
+  	margin-bottom: 2px;
+  	width: 300px;
+}
+
+DIV.t-palette-title {
+  	color: white;
+  	background-color: #094069;
+  	margin-bottom: 3px;
+  	display: block;
+  	text-align: center;
+}
+
+DIV.t-palette-available {
+   	float: left;
+}
+
+DIV.t-palette-controls { 
+	margin: 0px 5px;
+	width: 64px;
+	float: left;
+	text-align: center;
+}
+
+DIV.t-palette-selected {   
+	float: left;
+   	clear: right;
+}
+
+DIV.t-palette-spacer {
+   	clear: left;
+}
+
+
+DIV.t-palette BUTTON[disabled] IMG { 
+	filter: alpha(opacity = 100); -moz-opacity: .4; 
+}

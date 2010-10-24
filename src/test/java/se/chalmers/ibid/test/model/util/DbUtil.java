@@ -10,6 +10,8 @@ import org.springframework.transaction.TransactionStatus;
 
 import se.chalmers.ibid.model.account.Account;
 import se.chalmers.ibid.model.account.AccountDao;
+import se.chalmers.ibid.model.bid.Bid;
+import se.chalmers.ibid.model.bid.BidDao;
 import se.chalmers.ibid.model.category.Category;
 import se.chalmers.ibid.model.category.CategoryDao;
 import se.chalmers.ibid.model.product.Product;
@@ -30,6 +32,7 @@ public class DbUtil {
 		userDao = (UserDao) context.getBean("userDao");
 		categoryDao = (CategoryDao) context.getBean("categoryDao");
 		productDao = (ProductDao) context.getBean("productDao");
+		bidDao = (BidDao) context.getBean("bidDao");
 	}
 	
 	private static Long testUserId;
@@ -46,11 +49,15 @@ public class DbUtil {
 	private static Long testProduct7Id;
 	private static Long testProduct8Id;
 	private static Long testProduct9Id;
+	private static Long testBid1Id;
+	private static Long testBid2Id;
+	private static Long testBid3Id;
 	
 	private static AccountDao accountDao;
 	private static UserDao userDao;
 	private static CategoryDao categoryDao;
 	private static ProductDao productDao;
+	private static BidDao bidDao;
 	
 	private static String testEncryptedPassword;
 	private static String testCleanPassword = "cleanPassword";
@@ -126,6 +133,18 @@ public class DbUtil {
 	public static Long getTestProduct9Id() {
 		return testProduct9Id;
 	}
+	
+	public static Long getTestBid1Id() {
+		return testBid1Id;
+	}
+	
+	public static Long getTestBid2Id() {
+		return testBid2Id;
+	}
+
+	public static Long getTestBid3Id() {
+		return testBid3Id;
+	}
 
 
 	public static String getTestEncryptedPassword() {
@@ -170,6 +189,9 @@ public class DbUtil {
 		Product product5 = new Product("Ulises", 15, CalendarUtil.getCalendar(22, 12, 2011, 19, 00), category2);
 		Product product6 = new Product("Levi's jeans", 40, CalendarUtil.getCalendar(25, 12, 2011, 11, 00), category3);
 		Product product7 = new Product("Massimo Dutti jacket", 80, CalendarUtil.getCalendar(15, 5, 2011, 9, 20), category3);
+		Bid bid1 = new Bid(account, product1, 110);
+		Bid bid2 = new Bid(account, product2, 610);
+		Bid bid3 = new Bid(account, product3, 12);
 		
 		try {
 			accountDao.save(account);
@@ -202,6 +224,13 @@ public class DbUtil {
 			testProduct6Id = product6.getProductId();
 			testProduct7Id = product7.getProductId();
 			
+			bidDao.save(bid1);
+			bidDao.save(bid2);
+			bidDao.save(bid3);
+			testBid1Id = bid1.getBidId();
+			testBid2Id = bid2.getBidId();
+			testBid3Id = bid3.getBidId();
+			
 			transactionManager.commit(transactionStatus);
 		} catch (Throwable e) {
 			transactionManager.rollback(transactionStatus);
@@ -215,6 +244,13 @@ public class DbUtil {
 		TransactionStatus transactionStatus = transactionManager.getTransaction(null);
 		
 		try {
+			
+			bidDao.remove(testBid1Id);
+			bidDao.remove(testBid2Id);
+			bidDao.remove(testBid3Id);
+			testBid1Id = null;
+			testBid2Id = null;
+			testBid3Id = null;
 			
 			productDao.remove(testProduct1Id);
 			productDao.remove(testProduct2Id);
