@@ -1,0 +1,27 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	t:type="Layout" t:pageTitle="title"
+	xml:space="preserve">
+
+<form t:type="Form">
+	
+    <div class="field">
+        <t:label for="string"/>
+        <span class="entry">
+			<input t:type="TextField" t:id="string" size="32"/>
+        </span>   
+    </div>
+
+    <div class="field">
+        <t:label for="category"/>
+        <span class="entry">
+        	<t:select t:id="category" t:model="categories" t:blankOption="ALWAYS" t:blankLabel="${message:all-categories}"/>
+        </span>
+    </div>
+
+    <div class="button">
+		<input type="submit" value="${message:button-search}"/>
+    </div>
+
+</form>
+		
+</html>
