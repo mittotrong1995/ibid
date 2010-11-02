@@ -1,0 +1,85 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+    xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title"
+	xml:space="preserve">
+
+<!--
++ It is necessary to explicitly add "date" property since "Grid" component does
+  not recognize "Calendar" properties.
+-->
+
+<div align="center">
+
+<t:grid source="productsGridDataSource" row="product" 
+	rowsPerPage="rowsPerPage" add="category, date, time, highestbid, viewproduct" exclude="productId, ended, bestBid, version" 
+	reorder="category, name, date, time, startprice, highestbid, viewproduct" class="products" lean="literal:true">
+
+	<p:dateHeader>
+		${message:product-date}
+	</p:dateHeader>
+	
+	<p:timeHeader>
+		${message:product-time}
+	</p:timeHeader>
+
+	<p:nameHeader>
+		${message:product-name}
+	</p:nameHeader>
+
+	<p:dateCell>
+		<t:output value="product.date.time" format="literal:dd MMMM yyyy"/>
+	</p:dateCell>
+	
+	<p:timeCell>
+		<t:output value="product.date.time" format="literal:HH:mm"/>
+	</p:timeCell>
+	
+	<p:categoryHeader>
+		${message:category-name}
+	</p:categoryHeader>
+
+	<p:categoryCell>
+		${prop:product.category.name}
+	</p:categoryCell>
+	
+	<p:startpriceHeader>
+		${message:product-startprice} 
+	</p:startpriceHeader>
+	
+	<p:highestbidHeader>
+		${message:product-highestbid}
+	</p:highestbidHeader>
+	
+	<p:highestbidCell>
+		<t:if test="product.bestBid">
+			<t:output value="product.bestBid.money" format="literal:dd,dd"/>
+			<p:else>
+				<p>${message:product-no-bids}</p>
+			</p:else>
+		</t:if>
+	</p:highestbidCell>	
+	
+	<p:viewproductHeader>
+		${message:product-viewproduct}
+	</p:viewproductHeader>	
+	
+	<p:viewproductCell>
+		<a href="#" t:type="PageLink" t:page="bidding/ProductDetails" t:context="${prop:product.productId}">${message:product-info}</a>
+	</p:viewproductCell>
+
+	<p:empty>
+		<t:if test="productsGridDataSource.categoryNotFound">
+			<p>${message:category-not-found}.</p>
+			<p:else>
+				<p>${message:no-products}.</p>
+            </p:else>
+		</t:if>
+	</p:empty>
+
+</t:grid>
+
+</div>
+
+<br/>
+
+</html>

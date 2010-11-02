@@ -1,0 +1,46 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	t:type="Layout" t:pageTitle="title" 
+	t:menuExplanation="menuExplanation"
+	xml:space="preserve">
+	
+	<p>
+		<a href="#" t:type="PageLink" t:page="users/ChangePassword">${message:changePassword}</a>		       
+	</p>
+
+	<form t:type="Form" t:id="updateProfileForm">
+	   <t:errors/>
+
+	   <div class="field">        
+	        <t:label for="name"/>
+	        <span class="entry">    
+	            <input t:id="name" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+	   
+	   <div class="field">        
+	        <t:label for="surname"/>
+	        <span class="entry">    
+	            <input t:id="surname" t:type="TextField"
+				       t:validate="required" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+	   
+	   <div class="field">        
+	        <t:label for="email"/>
+	        <span class="entry">    
+	            <input t:id="email" t:type="TextField"
+				       t:validate="required,regexp" 
+				       size="16" maxlength="30" />
+	        </span>
+	   </div>
+	    
+	    <div class="button">
+	        <input type="submit" value="${message:button-apply}"/>        
+	    </div>
+	    
+	</form>
+
+</html>

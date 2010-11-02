@@ -1,0 +1,98 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title"
+	xml:space="preserve">
+
+
+
+<t:zone t:id="bidsZone" id="bidsZone" visible="${literal:true}">
+	<p><strong><font color="#fffac6">${message:list-ongoing-bids}</font></strong>
+
+	<!--Enlaces anterior y siguiente-->
+
+	<div class="previousNextLinks"><span class="previousLink">
+	<t:if test="existsPreviousLink()">
+		<t:actionlink t:id="previous" zone="bidsZone">
+			<font color="#D10100">${message:previous-link}</font>
+		</t:actionlink>
+	</t:if> </span> <span class="nextLink"> <t:if test="existsNextLink()">
+		<t:actionlink t:id="next" zone="bidsZone">
+			<font color="#D10100">${message:next-link}</font>
+		</t:actionlink>
+	</t:if> </span></div>
+
+	<br></br>
+
+	<p t:type="Loop" t:source="bids" t:value="bid"><font
+		color="#fffac6">${prop:buildBidString(bid)}</font></p>
+	</p>
+</t:zone>
+
+
+<t:zone t:id="formZone" id="formZone" visible="${literal:false}">
+	<p><font color="#D10100"><strong>${message:info-bid}</strong></font></p>
+	<p><font color="#fffac6"><strong>${message:product}</strong>
+	${product.name}</font></p>
+	<p><font color="#fffac6"><strong>${message:starting-price}:</strong> ${product.startprice}</font></p>
+	<t:if test="product.bestBid">
+		<p><font color="#fffac6"><strong>${message:product-highest-bid}</strong> ${product.bestBid.money}</font></p>
+		<p:else>
+			<p><font color="#fffac6"><strong>${message:product-highest-bid}</strong> ${message:nobids}</font></p>
+		</p:else>
+	</t:if>
+
+	<form t:type="Form" t:id="bidForm" zone="bidsZone"><t:errors />
+	<t:errors/>
+	<div align="center">
+	<div class="field"><t:label for="amount" /> <span class="entry">
+	<input t:type="TextField" t:id="amount" t:validate="required,min=1"
+		size="5" maxlength="10" /> </span></div>
+
+
+
+	<br />
+	<br />
+
+	<div class="button"><input type="submit"
+		value="${message:button-place-bid}" /></div>
+	</div>
+
+	</form>
+</t:zone>
+
+
+
+<t:if test="product">
+
+	<div align="center">
+	
+	<t:if test="existBids()">
+	
+	<t:actionlink t:id="clicker" zone="formZone">${message:bid-product}</t:actionlink>
+
+		<p class="title">${product.name}</p>
+
+		<p class="title">${message:header}</p>
+
+		<table class="viewProductDetails">
+
+			<th>${message:accountId-label}</th>
+			<th>${message:amount-label}</th>
+			<tr t:type="Loop" t:source="bidsProduct" t:value="bidProduct">
+				<td>${prop:bidProduct.account.accountId}</td>
+				<td>${prop:bidProduct.money}</td>
+			</tr>
+		</table>
+
+		<p:else>
+			<p>${message:product-no-bids}</p>
+			<t:actionlink t:id="clicker2" zone="formZone">${message:bid-product}</t:actionlink>
+		</p:else>
+
+	</t:if></div>
+	<p:else>
+		<p>${message:error-productNotFound}</p>
+	</p:else>
+
+</t:if>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	xmlns:p="tapestry:parameter" xml:space="preserve">
+
+<head>
+<title>${pageTitle}</title>
+<link rel="StyleSheet" href="${context:/css/styles.css}" type="text/css"
+	media="all" />
+</head>
+
+<body>
+
+<!-- Window. -->
+<div id="window"><!-- Body header. -->
+<div id="header">${message:header}</div>
+
+
+
+<!-- Menu. -->
+<div id="menu"><span id="menuWelcome"> <t:if
+	test="userSession">
+ 			${message:menu-hello} ${userSession.firstName}
+            <p:else>
+            	${message:menu-welcome}
+            </p:else>
+</t:if> </span> - <t:if test="menuExplanation">
+	<span id="menuExplanation"> ${menuExplanation} </span>
+	<p:else>
+		<span id="menuLinks"> <t:if test="userSession">
+			<a href="#" t:type="PageLink" t:page="users/UpdateProfile">${message:menu-updateProfile}</a> -
+				    <a href="#" t:type="ActionLink" t:id="logout">${message:menu-logout}</a>
+			<p:else>
+				<a href="#" t:type="PageLink" t:page="users/Login">${message:menu-authenticate}</a>
+			</p:else>
+		</t:if> </span>
+	</p:else>
+</t:if></div>
+
+
+
+<!-- Page body. -->
+<div id="pageBody"><t:if test="userSession">
+
+	<!-- Sidebar. -->
+	<div id="sidebar">
+	<ul>
+		<li><a href="#" t:type="PageLink" t:page="Index">${message:sidebar-home}</a></li>
+
+		<li><a href="#" t:type="PageLink" t:page="bidding/AddMoney">${message:sidebar-add-money}</a></li>
+		<li><a href="#" t:type="PageLink" t:page="bidding/ViewAccount">${message:sidebar-view-account}</a></li>
+		<li><a href="#" t:type="PageLink" t:page="bidding/SearchProducts">${message:sidebar-search-products}</a></li>
+		<li><a href="#" t:type="PageLink" t:page="Index">${message:sidebar-unimplemented}</a></li>
+
+	</ul>
+	</div>
+</t:if> <!-- Content. --> <t:if test="userSession">
+	<div id="content" style="width: 80%"><t:body /></div>
+	<p:else>
+		<div id="content" style="width: 100%"><t:body /></div>
+	</p:else>
+</t:if> <!-- End of "pageBody" id. --></div>
+
+
+
+<!-- Body footer. -->
+<div id="footer">${message:footer}</div>
+
+
+
+<!-- End of "window" id. --></div>
+
+
+
+<!-- End of HTML body. -->
+</body>
+
+</html>
