@@ -26,8 +26,3 @@ INSERT INTO Product VALUES (default, 'Everyday - Bon Jovi', 5.60, '2011-01-23 16
 INSERT INTO Product VALUES (default, 'Master of Puppets - Metallica', 6.25, '2011-05-10 06:34:14', 0, 5, null, 0);
 INSERT INTO Product VALUES (default, 'Use your illusion II - Guns n Roses', 8.10, '2011-04-30 15:29:13', 0, 5, null, 0);
 
-INSERT INTO Bid VALUES (default, 523.0, default, 2, 1);
-INSERT INTO Bid VALUES (default, 524.0, default, 2, 1);
-INSERT INTO Bid VALUES (default, 525.0, default, 2, 1);
-
-
