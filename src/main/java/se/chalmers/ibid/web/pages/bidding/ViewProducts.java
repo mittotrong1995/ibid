@@ -3,6 +3,7 @@ package se.chalmers.ibid.web.pages.bidding;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ViewProducts{
 	private List<Product> list;
 	private ProductsGridDataSource productsGridDataSource;
 	private Product product;
+	//private NumberFormat format;
 	
 	@Inject
 	private Locale locale;
@@ -65,6 +67,14 @@ public class ViewProducts{
 	public Format getStringFormat() {
 		return new MessageFormat("");
 	}
+
+	/*public NumberFormat getFormat() {
+		return new NumberFormat();
+	}
+
+	public void setFormat(NumberFormat format) {
+		this.format = format;
+	}*/
 
 	public int getRowsPerPage() {
 		return PRODUCTS_PER_PAGE;

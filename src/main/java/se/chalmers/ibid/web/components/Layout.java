@@ -36,9 +36,10 @@ public class Layout {
         CookiesManager.removeCookies(cookies);
         return Index.class;
 	}
-    
+    /*  
 	public boolean isAdmin(){
 		//return true;
 		return userSession.getLogin().equals("admin");
 	}
+	*/
 }

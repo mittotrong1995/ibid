@@ -28,143 +28,165 @@ import se.chalmers.ibid.web.services.AuthenticationPolicyType;
 import se.chalmers.ibid.web.util.UserSession;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class ProductDetails{
+public class ProductDetails {
 
 	private final static int BIDS_PER_PAGE = 10;
-	
+
 	private Long productId;
 	@Persist
 	private Product product;
 	private User user;
 	private Long accountId;
-	
+
 	@Persist
 	private int startIndex;
-	
+
 	@Inject
 	private BiddingServices biddingServices;
-	
+
 	@Inject
 	private UserServices userServices;
-	
+
 	@Inject
 	private Messages messages;
-	
+
 	@Inject
 	private Locale locale;
-	
-	
+
 	/************************************* ZONA AJAX ***************************************/
-	
-    @SessionState(create=false)
-    private UserSession userSession;
-	
+
+	@SessionState(create = false)
+	private UserSession userSession;
+
 	@SuppressWarnings("unused")
 	@Property
 	private List<Bid> bids;
-	
+
 	@SuppressWarnings("unused")
 	@Property
 	private Bid bid;
-	
+
 	@SuppressWarnings("unused")
 	@Property
 	private List<Bid> bidsProduct;
-	
+
 	@SuppressWarnings("unused")
 	@Property
 	private Bid bidProduct;
 
 	@InjectComponent
 	private Zone bidsZone;
-	
+
 	@InjectComponent
 	private Zone formZone;
-	
+
 	@Component
 	private Form bidForm;
-	
+
 	@Property
 	private String amount;
-	
+
 	private double amountDouble;
-	
+
+	private NumberFormat format;
+
 	@Component(id = "amount")
 	private TextField amountTextField;
-	
-	public String buildBidString(Bid bid){
 
-		String infoBid = bid.getProduct().getName() + " (" + bid.getMoney() + ")\n";
-			
+	public String buildBidString(Bid bid) {
+
+		String infoBid = bid.getProduct().getName() + " (" + bid.getMoney()
+				+ ")\n";
+
 		return infoBid;
 	}
-	
-	void onValidateForm() {
+
+	Object onValidateForm() {
 
 		if (!bidForm.isValid()) {
-			return;
+			return null;
 		}
 
 		NumberFormat numberFormatter = NumberFormat.getInstance(locale);
 		ParsePosition position = new ParsePosition(0);
 		Number number = numberFormatter.parse(amount, position);
-		
-		if (position.getIndex() != amount.length()){
+
+		if (position.getIndex() != amount.length()) {
 			bidForm.recordError(amountTextField, messages.format(
 					"error-incorrectNumberFormat", amount));
-			return;
-		}else{
+			return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add(
+					"formZone", formZone.getBody());
+		} else {
 			amountDouble = number.doubleValue();
 		}
-		
+
 		try {
-			//Comprobar: que la cantidad es mayor que la previa y que no se ha pasado el tiempo
-			biddingServices.bid(accountId, productId, 1000);
+
+			if (((biddingServices.retrieveProduct(productId).getBestBid() != null) && 
+				(amountDouble <= biddingServices.retrieveProduct(productId).getBestBid().getMoney()))
+				|| (amountDouble <= biddingServices.retrieveProduct(productId).getStartprice())) {
+				
+					bidForm.recordError(amountTextField, messages.format("error-low-bid", amount));
+					return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add("formZone", formZone.getBody());
+
+			} else {
+				amountDouble = number.doubleValue();
+				biddingServices.bid(accountId, productId, amountDouble);
+			}
 		} catch (InstanceNotFoundException e) {
-			bidForm.recordError(amountTextField, messages.format(
-					"error-accountNotFound"));
+			bidForm.recordError(amountTextField, messages
+					.format("error-accountNotFound"));
 		}
-		
+
 		try {
-			bids = biddingServices.getOngoingBids(accountId, startIndex, BIDS_PER_PAGE);
-		} catch (InstanceNotFoundException e) {}
+			bids = biddingServices.getOngoingBids(accountId, startIndex,
+					BIDS_PER_PAGE);
+			return ProductDetails.class;
+		} catch (InstanceNotFoundException e) {
+		}
+		return null;
 	}
-	
-	Object onSuccess(){
-		return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add("formZone", formZone.getBody());
+
+	Object onSuccess() {
+		return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add(
+				"formZone", formZone.getBody());
 	}
-	
-	public boolean existsPreviousLink(){
-		return (startIndex-BIDS_PER_PAGE >= 0);
+
+	public boolean existsPreviousLink() {
+		return (startIndex - BIDS_PER_PAGE >= 0);
 	}
-	
-	public boolean existsNextLink(){
+
+	public boolean existsNextLink() {
 		int numberBids = 0;
 		try {
 			numberBids = biddingServices.getNumberOngoingBids(accountId);
-		}catch (InstanceNotFoundException e){}
-		return (startIndex+BIDS_PER_PAGE < numberBids);
+		} catch (InstanceNotFoundException e) {
+		}
+		return (startIndex + BIDS_PER_PAGE < numberBids);
 	}
-	
-	Object onActionFromPrevious(){
+
+	Object onActionFromPrevious() {
 		startIndex = startIndex - BIDS_PER_PAGE;
 		try {
-			bids = biddingServices.getOngoingBids(accountId, startIndex, BIDS_PER_PAGE);
-		} catch (InstanceNotFoundException e) {}
-		return bidsZone.getBody();  
+			bids = biddingServices.getOngoingBids(accountId, startIndex,
+					BIDS_PER_PAGE);
+		} catch (InstanceNotFoundException e) {
+		}
+		return bidsZone.getBody();
 	}
-	
-	Object onActionFromNext(){
+
+	Object onActionFromNext() {
 		startIndex = startIndex + BIDS_PER_PAGE;
 		try {
-			bids = biddingServices.getOngoingBids(accountId, startIndex, BIDS_PER_PAGE);
-		} catch (InstanceNotFoundException e) {}
-		return bidsZone.getBody();    
+			bids = biddingServices.getOngoingBids(accountId, startIndex,
+					BIDS_PER_PAGE);
+		} catch (InstanceNotFoundException e) {
+		}
+		return bidsZone.getBody();
 	}
 
 	/************************************* ZONA AJAX ***************************************/
 
-	
 	public Long getProductId() {
 		return productId;
 	}
@@ -181,6 +203,14 @@ public class ProductDetails{
 		this.product = product;
 	}
 
+	public NumberFormat getFormat() {
+		return format;
+	}
+
+	public void setFormat(NumberFormat format) {
+		this.format = format;
+	}
+
 	public BiddingServices getBiddingServices() {
 		return biddingServices;
 	}
@@ -189,41 +219,44 @@ public class ProductDetails{
 		this.biddingServices = biddingServices;
 	}
 
-	public boolean existBids(){
+	public boolean existBids() {
 		try {
 			return (biddingServices.getNumberBidsByProduct(productId) != 0);
-		} catch (InstanceNotFoundException e) {}
+		} catch (InstanceNotFoundException e) {
+		}
 		return false;
 	}
-	
-	public String getProductName(){
+
+	public String getProductName() {
 		return product.getName();
 	}
-	
-	Object onActionFromClicker(){
-	    return formZone.getBody();
+
+	Object onActionFromClicker() {
+		return formZone.getBody();
 	}
-	
-	Object onActionFromClicker2(){
-	    return formZone.getBody();
-	}	
+
+	Object onActionFromClicker2() {
+		return formZone.getBody();
+	}
 
 	void onActivate(Long productId) {
-		try{
+		try {
 			this.productId = productId;
 			product = biddingServices.retrieveProduct(productId);
 			bidsProduct = biddingServices.getBidsByProduct(productId);
-			
+
 			user = userServices.searchUser(userSession.getUserProfileId());
 			accountId = user.getAccount().getAccountId();
 			startIndex = 0;
-			bids = biddingServices.getOngoingBids(accountId, startIndex, BIDS_PER_PAGE);
-			
-		} catch (InstanceNotFoundException e){}
-		
-		bidsZone.getBody(); 
+			bids = biddingServices.getOngoingBids(accountId, startIndex,
+					BIDS_PER_PAGE);
+
+		} catch (InstanceNotFoundException e) {
+		}
+
+		bidsZone.getBody();
 	}
-	
+
 	Long onPassivate() {
 		return productId;
 	}
