@@ -130,8 +130,13 @@ public class ProductDetails {
 					return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add("formZone", formZone.getBody());
 
 			} else {
-				amountDouble = number.doubleValue();
-				biddingServices.bid(accountId, productId, amountDouble);
+				if ((amountDouble > biddingServices.retrieveAccount(accountId).getMoney())) {
+					bidForm.recordError(amountTextField, messages.format("error-not-enough-money", amount));
+					return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add("formZone", formZone.getBody());
+				}else{
+					amountDouble = number.doubleValue();
+					biddingServices.bid(accountId, productId, amountDouble);
+				}
 			}
 		} catch (InstanceNotFoundException e) {
 			bidForm.recordError(amountTextField, messages
