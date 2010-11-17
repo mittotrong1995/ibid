@@ -17,6 +17,8 @@ public interface BiddingServices {
 	
 	public Account addMoney(Long accountId, double amount) throws InstanceNotFoundException;
 	
+	public Account giveMoneyBack(Long accountId, double amount) throws InstanceNotFoundException;
+		
 	public int getNumberProducts(List<String> keywords, Long categoryId) throws InstanceNotFoundException;
 
 	public List<Product> searchProducts(List<String> keywords, Long categoryId, int startIndex, int count) throws InstanceNotFoundException;
