@@ -277,9 +277,9 @@ public class BiddingServicesTest {
 		double amount = 25;
 		Long accountId = DbUtil.getTestAccountId();
 		Account account1 = accountDao.find(accountId);
-		double money1 = account1.getMoney() + amount;
+		double money1 = account1.getAvailableMoney() + amount;
 		Account account2 = biddingServices.addMoney(accountId, amount);
-		double money2 = account2.getMoney();
+		double money2 = account2.getAvailableMoney();
 		assertEquals(money1, money2, 0);
 	}
 	

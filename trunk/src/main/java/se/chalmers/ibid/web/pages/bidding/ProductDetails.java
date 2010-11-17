@@ -2,6 +2,7 @@ package se.chalmers.ibid.web.pages.bidding;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -121,6 +122,20 @@ public class ProductDetails {
 		}
 
 		try {
+			
+			//Before bidding, I look if a previous bid was placed by the same user
+			//because before placing this new bid, the money used for the last one
+			//has to become available
+			
+			List<Bid> list = biddingServices.getBidsByProduct(productId);
+			double previousBidAmount = 0;
+			Iterator<Bid> iterator = list.iterator();
+			Bid bid;
+			while(iterator.hasNext()){
+				bid = iterator.next();
+				if (bid.getAccount().getAccountId() == accountId) 
+					previousBidAmount = bid.getMoney();
+			}
 
 			if (((biddingServices.retrieveProduct(productId).getBestBid() != null) && 
 				(amountDouble <= biddingServices.retrieveProduct(productId).getBestBid().getMoney()))
@@ -130,11 +145,13 @@ public class ProductDetails {
 					return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add("formZone", formZone.getBody());
 
 			} else {
-				if ((amountDouble > biddingServices.retrieveAccount(accountId).getMoney())) {
+				if ((amountDouble > ( biddingServices.retrieveAccount(accountId).getAvailableMoney() + previousBidAmount))) {
 					bidForm.recordError(amountTextField, messages.format("error-not-enough-money", amount));
 					return new MultiZoneUpdate("bidsZone", bidsZone.getBody()).add("formZone", formZone.getBody());
 				}else{
 					amountDouble = number.doubleValue();
+					//The previous bid's money has to be returned if needed:
+					biddingServices.giveMoneyBack(accountId, previousBidAmount);
 					biddingServices.bid(accountId, productId, amountDouble);
 				}
 			}

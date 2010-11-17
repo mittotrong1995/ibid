@@ -27,7 +27,7 @@ DROP TABLE Category;
 -- ------------------------------- Account ------------------------------------
 
 CREATE TABLE Account ( accountId BIGINT NOT NULL AUTO_INCREMENT,
-    money DOUBLE PRECISION NOT NULL, version BIGINT, 
+    availableMoney DOUBLE PRECISION NOT NULL, blockedMoney DOUBLE PRECISION NOT NULL, version BIGINT, 
     CONSTRAINT AccountPK PRIMARY KEY(accountId) ) ENGINE = InnoDB;
 
 CREATE INDEX AccountByAccountIdIndex ON Account (accountId);

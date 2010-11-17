@@ -36,6 +36,8 @@ public class BiddingServicesImpl implements BiddingServices{
 		Account account = accountDao.find(accountId);
 		Product product = productDao.find(productId);
 		Bid bid = new Bid(account, product, amount);
+		account.setAvailableMoney(account.getAvailableMoney() - amount);
+		account.setBlockedMoney(account.getBlockedMoney() + amount);
 		bidDao.save(bid);
 		product.setBestBid(bid);
 		productDao.save(product);
@@ -133,7 +135,15 @@ public class BiddingServicesImpl implements BiddingServices{
 	public Account addMoney(Long accountId, double amount) throws InstanceNotFoundException {
 		
 		Account account = retrieveAccount(accountId);
-		account.setMoney(account.getMoney() + amount);
+		account.setAvailableMoney(account.getAvailableMoney() + amount);
+		return account;
+	}
+	
+	public Account giveMoneyBack(Long accountId, double amount) throws InstanceNotFoundException {
+		
+		Account account = retrieveAccount(accountId);
+		account.setAvailableMoney(account.getAvailableMoney() + amount);
+		account.setBlockedMoney(account.getBlockedMoney() - amount);
 		return account;
 	}
 

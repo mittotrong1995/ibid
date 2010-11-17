@@ -15,13 +15,15 @@ public class Account {
 	
 
 	private Long accountId;
-	private double money;
+	private double availableMoney;
+	private double blockedMoney;
 	private Long version;
 
 	public Account(){}
 	
     public Account(double money) {
-		this.money = money;
+		this.availableMoney = money;
+		this.blockedMoney = 0;
 	}
 
 	@Column(name="accountId")
@@ -38,13 +40,22 @@ public class Account {
 		this.accountId = accountId;
 	}
 
-    @Column(name="money")
-	public double getMoney() {
-		return money;
+    @Column(name="availableMoney")
+	public double getAvailableMoney() {
+		return availableMoney;
 	}
 
-	public void setMoney(double money) {
-		this.money = money;
+	public void setAvailableMoney(double money) {
+		this.availableMoney = money;
+	}
+	
+    @Column(name="blockedMoney")
+	public double getBlockedMoney() {
+		return blockedMoney;
+	}
+
+	public void setBlockedMoney(double money) {
+		this.blockedMoney = money;
 	}
 
 	@Version

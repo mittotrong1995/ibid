@@ -4,8 +4,8 @@ INSERT INTO Category VALUES (default, 'Clothing');
 INSERT INTO Category VALUES (default, 'Electronic devices');
 INSERT INTO Category VALUES (default, 'Music');
 
-INSERT INTO Account VALUES (default, 0, 0);
-INSERT INTO Account VALUES (default, 0, 0);
+INSERT INTO Account VALUES (default, 0, 0, 0);
+INSERT INTO Account VALUES (default, 0, 0, 0);
 
 INSERT INTO User VALUES (default, 'admin', 'WCP4a.zz3uLco', 'Administrator', 'Rules', 'admin@ibid.com', 1, 0);
 INSERT INTO User VALUES (default, 'franservia', 'WCP4a.zz3uLco', 'Francisco', 'Servia', 'franservia@ibid.com', 2, 0);

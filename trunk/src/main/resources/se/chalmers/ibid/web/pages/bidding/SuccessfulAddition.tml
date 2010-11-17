@@ -17,8 +17,13 @@
 	    	</tr>
 	
 	 	   	<tr>
-	        	<th>${message:money-label}</th>
-	        	<td><t:output value="account.money" format="format"/> ${message:moneySymbol}</td>
+	        	<th>${message:available-money-label}</th>
+	        	<td><t:output value="account.availableMoney" format="format"/> ${message:moneySymbol}</td>
+	    	</tr>
+	    	
+	    	<tr>
+	        	<th>${message:blocked-money-label}</th>
+	        	<td><t:output value="account.blockedMoney" format="format"/> ${message:moneySymbol}</td>
 	    	</tr>
 	    
 		</table>
