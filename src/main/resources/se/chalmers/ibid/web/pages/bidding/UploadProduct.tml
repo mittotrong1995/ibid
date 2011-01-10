@@ -1,0 +1,38 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	t:type="Layout" t:pageTitle="title"
+	xml:space="preserve">
+
+<form t:type="Form" t:id="uploadProductForm">
+	
+	<t:errors/>
+	
+    <div class="field">
+        <t:label for="name"/>
+        <span class="entry">
+			<input t:type="TextField" t:id="name" 
+			t:validate="required,min=0" size="16" maxlength="32"/>
+        </span>   
+    </div>
+    
+    <div class="field">
+        <t:label for="startprice"/>
+        <span class="entry">
+			<input t:type="TextField" t:id="startprice" 
+			       t:validate="required,min=0" size="16" maxlength="16"/>
+        </span>
+    </div>
+
+    <div class="field">
+        <t:label for="category"/>
+        <span class="entry">
+        	<t:select t:id="category" t:model="categories" t:blankOption="NEVER"/>
+        </span>
+    </div>
+
+    <div class="button">
+		<input type="submit" value="${message:button-upload}"/>
+    </div>
+
+</form>
+		
+</html>
