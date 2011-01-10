@@ -52,7 +52,7 @@
 		<li><a href="#" t:type="PageLink" t:page="bidding/AddMoney">${message:sidebar-add-money}</a></li>
 		<li><a href="#" t:type="PageLink" t:page="bidding/ViewAccount">${message:sidebar-view-account}</a></li>
 		<li><a href="#" t:type="PageLink" t:page="bidding/SearchProducts">${message:sidebar-search-products}</a></li>
-		<li><a href="#" t:type="PageLink" t:page="Index">${message:sidebar-unimplemented}</a></li>
+		<li><a href="#" t:type="PageLink" t:page="bidding/UploadProduct">${message:sidebar-upload-product}</a></li>
 
 	</ul>
 	</div>

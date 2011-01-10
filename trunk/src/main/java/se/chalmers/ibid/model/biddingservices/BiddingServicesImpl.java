@@ -31,6 +31,14 @@ public class BiddingServicesImpl implements BiddingServices{
 	@Autowired
 	private BidDao bidDao;
 
+	public Product uploadProduct(String name, double startPrice, String categoryName) throws InstanceNotFoundException{
+		
+		Category category = categoryDao.searchCategoryByName(categoryName);
+		Product product = new Product(name, startPrice, null, category);
+		productDao.save(product);
+		return product;
+	}
+	
 	public Bid bid(Long accountId, Long productId, double amount) throws InstanceNotFoundException {
 		
 		Account account = accountDao.find(accountId);

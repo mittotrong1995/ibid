@@ -11,6 +11,8 @@ import se.chalmers.ibid.model.product.Product;
 
 public interface BiddingServices {
 	
+	public Product uploadProduct(String name, double startPrice, String category) throws InstanceNotFoundException;
+	
 	public Account retrieveAccount(Long accountId) throws InstanceNotFoundException;
 	
 	public Product retrieveProduct(Long productId) throws InstanceNotFoundException;
